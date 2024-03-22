@@ -1,103 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".Home_activity">
+    android:fillViewport="true">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="10dp">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".user.Home_activity">
 
-        <ImageView
-            android:id="@+id/imageView2"
-            android:layout_width="56dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:src="@drawable/logo" />
-
-        <TextView
-            android:id="@+id/textView3"
-            android:layout_width="102dp"
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="PHIMCHILL"
-            android:textAlignment="textStart"
-            android:textColor="#E41414"
-            android:textSize="20sp" />
-
-        <TextView
-            android:id="@+id/textView6"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="5" />
+            android:layout_marginBottom="10dp"
+            android:background="#37B55B"
+            android:orientation="horizontal">
 
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/imageView2"
+                android:layout_width="56dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:src="@drawable/logo" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="102dp"
+                android:layout_height="50dp"
+                android:layout_weight="1"
+                android:text="PHIMCHILL"
+                android:textAlignment="textStart"
+                android:textColor="#E41414"
+                android:textSize="20sp" />
 
-        <TextView
-            android:id="@+id/tvphimmoi"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Phim mới"
-            android:textSize="16sp" />
+            <TextView
+                android:id="@+id/textView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="5" />
 
-        <TextView
-            android:id="@+id/tvtheloai"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Thể loại"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvquocgia"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Quốc gia"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/textView10"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="5" />
-
-    </LinearLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="601dp">
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpage"
+            <TextView
+                android:id="@+id/textView7"
                 android:layout_width="match_parent"
-                android:layout_height="200dp" />
+                android:layout_height="wrap_content"
+                android:text="Phim hot"
+                android:textColor="#BF1111"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:paddingLeft="10dp"/>
 
-            <LinearLayout
+            <ViewFlipper
+                android:id="@+id/viewflipper"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical"></LinearLayout>
+                android:layout_height="157dp">
+
+                <!-- Đặt các phần tử cho ViewFlipper tại đây (nếu có) -->
+
+            </ViewFlipper>
         </LinearLayout>
-    </ScrollView>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="horizontal"></LinearLayout>
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:background="#5992d2"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:text="Danh sách phim"
+                android:textColor="#BF1111"
+                android:textSize="20sp"
+                android:textStyle="bold"></TextView>
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycleview"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="10dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="#ED1E1E"
+            android:orientation="horizontal"
+            android:padding="5dp">
+
+            <ImageView
+                android:id="@+id/imagehome"
+                android:layout_width="184dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:src="@drawable/trangchu" />
+
+            <ImageView
+                android:id="@+id/imagefilm"
+                android:layout_width="204dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/film" />
+
+            <ImageView
+                android:id="@+id/iamgetk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:src="@drawable/taikhoan" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
