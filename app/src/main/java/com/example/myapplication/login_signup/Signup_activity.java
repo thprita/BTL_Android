@@ -1,4 +1,4 @@
-package com.example.myapplication;
+package com.example.myapplication.login_signup;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,25 +10,34 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.myapplication.R;
+import com.example.myapplication.data.Data;
+import com.example.myapplication.data.Taikhoan;
+
 public class Signup_activity extends AppCompatActivity {
     EditText edtuser, edtpass, edtpass1, edtphone;
     Button btnsignup;
     TextView tvlogin;
-    DataTK datatk;
+    Data datatk;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_signup);
-
+        Anhxa();
+        Signup();;
+        Login();
+    }
+    public void Anhxa(){
         edtuser = findViewById(R.id.edtuser);
         edtpass = findViewById(R.id.edtpass);
         edtpass1 = findViewById(R.id.edtpass1);
         edtphone = findViewById(R.id.edtphone);
         btnsignup = findViewById(R.id.btnsignup);
         tvlogin = findViewById(R.id.tvlogin);
-        datatk = new DataTK(this);
-
+        datatk = new Data(this);
+    }
+    public void Signup(){
         btnsignup.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -41,7 +50,7 @@ public class Signup_activity extends AppCompatActivity {
                     Taikhoan tk = new Taikhoan();
                     tk.setUsername(username);
                     tk.setPassword(password);
-                    tk.setMobile(Integer.parseInt(phone));
+                    tk.setMobile((phone));
 
                     datatk.addTK(tk);
 
@@ -51,7 +60,8 @@ public class Signup_activity extends AppCompatActivity {
                 }
             }
         });
-
+    }
+    public void Login(){
         tvlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

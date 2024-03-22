@@ -1,16 +1,16 @@
-package com.example.myapplication;
+package com.example.myapplication.data;
 
 public class Taikhoan {
     private int idtk;
     private String username;
     private String password;
-    private int mobile;
+    private String mobile;
 
     public Taikhoan() {
         // Constructor mặc định
     }
 
-    public Taikhoan(int idtk, String username, String password, int mobile) {
+    public Taikhoan(int idtk, String username, String password, String mobile) {
         this.idtk = idtk;
         this.username = username;
         this.password = password;
@@ -18,6 +18,7 @@ public class Taikhoan {
     }
 
     // Getter và Setter cho idtk
+
     public int getIdtk() {
         return idtk;
     }
@@ -26,7 +27,6 @@ public class Taikhoan {
         this.idtk = idtk;
     }
 
-    // Getter và Setter cho username
     public String getUsername() {
         return username;
     }
@@ -35,7 +35,6 @@ public class Taikhoan {
         this.username = username;
     }
 
-    // Getter và Setter cho pass
     public String getPassword() {
         return password;
     }
@@ -44,12 +43,11 @@ public class Taikhoan {
         this.password = password;
     }
 
-    // Getter và Setter cho mobile
-    public int getMobile() {
+    public String getMobile() {
         return mobile;
     }
 
-    public void setMobile(int mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 }
