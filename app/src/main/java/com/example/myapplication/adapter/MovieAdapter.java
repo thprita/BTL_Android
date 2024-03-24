@@ -66,6 +66,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 .load(movie.getImageUrl())
                 .into(holder.imageView);
         holder.textView.setText(movie.getTitle());
+
+        // Thiết lập OnMovieClickListener cho ViewHolder
         holder.setOnMovieClickListener(new OnMovieClickListener() {
             @Override
             public void onMovieClick(View view, int position, boolean isclick) {

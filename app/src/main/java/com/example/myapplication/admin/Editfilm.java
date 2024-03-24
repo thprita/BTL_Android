@@ -76,7 +76,7 @@ public class Editfilm extends AppCompatActivity {
 
     }
     public void Anhxa(){
-        edttitle = findViewById(R.id.edttitle);
+        edttitle = findViewById(R.id.edtidmovie);
         edtnd = findViewById(R.id.edtnd);
         edtimg = findViewById(R.id.edtimg);
         edtvideo = findViewById(R.id.edtvideo);
@@ -86,7 +86,7 @@ public class Editfilm extends AppCompatActivity {
         btnsua = findViewById(R.id.btnsua);
         btnxoa = findViewById(R.id.btnxoa);
         btnds = findViewById(R.id.btnds);
-        imagetl  = findViewById(R.id.tl1);
+        imagetl = findViewById(R.id.imgeditfilm);
         lv = findViewById(R.id.lv);
         data = new Data(this);
         //lv = findViewById(R.id.lv);
@@ -145,11 +145,10 @@ public class Editfilm extends AppCompatActivity {
                     movie.setImageUrl(imageUrl);
                     movie.setVideoUrl(videoUrl);
                     movie.setWatchPosition(watchPosition);
-
-                    // Cập nhật thông tin bộ phim trong cơ sở dữ liệu
                     data.updateMovie(movie);
+                    Toast.makeText(Editfilm.this, "Sửa thành công", Toast.LENGTH_SHORT).show();
+
                 } else {
-                    // Bộ phim không tồn tại, hiển thị thông báo hoặc thực hiện hành động phù hợp
                     Toast.makeText(Editfilm.this, "Bộ phim không tồn tại", Toast.LENGTH_SHORT).show();
                 }
             }

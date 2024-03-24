@@ -16,6 +16,7 @@ public class Homeadmin extends AppCompatActivity {
         setContentView(R.layout.activity_homeadmin);
         Anhxa();
         Movies();
+        Review();
 
     }
     public void Anhxa(){
@@ -29,6 +30,15 @@ public class Homeadmin extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(Homeadmin.this,Editfilm.class);
+                startActivity(intent);
+            }
+        });
+    }
+    public void Review(){
+        btnreviews.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Homeadmin.this,EditReview.class);
                 startActivity(intent);
             }
         });

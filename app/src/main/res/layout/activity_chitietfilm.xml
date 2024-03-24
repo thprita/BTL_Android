@@ -70,9 +70,10 @@
         android:layout_height="wrap_content"
         android:text="Button" />
 
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="386dp"
-        android:layout_height="310dp" />
+    <Button
+        android:id="@+id/btnbinhluan"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Bình luận" />
 
 </LinearLayout>
