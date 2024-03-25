@@ -119,7 +119,7 @@ public class Editfilm extends AppCompatActivity {
                 movie.setWatchPosition(watchPosition);
                 data.addMovie(movie);
                 Toast.makeText(Editfilm.this, "Đăng ký thành công!", Toast.LENGTH_SHORT).show();
-                Reset();
+             //   Reset();
             }
         });
     }

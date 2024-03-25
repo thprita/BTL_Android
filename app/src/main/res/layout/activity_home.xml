@@ -27,7 +27,7 @@
                 android:src="@drawable/logo" />
 
             <TextView
-                android:id="@+id/textView3"
+                android:id="@+id/tvpass"
                 android:layout_width="102dp"
                 android:layout_height="50dp"
                 android:layout_weight="1"
@@ -76,20 +76,21 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/danhsachphim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:text="Danh sách phim"
                 android:textColor="#BF1111"
                 android:textSize="20sp"
-                android:textStyle="bold"></TextView>
+                android:textStyle="bold"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:padding="5dp">
 
             </androidx.recyclerview.widget.RecyclerView>
 
@@ -114,7 +115,7 @@
                 android:layout_width="204dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:src="@drawable/film" />
+            android:src="@drawable/taikhoan" />
 
             <ImageView
                 android:id="@+id/iamgetk"

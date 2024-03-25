@@ -3,52 +3,49 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:padding="5dp">
+
     <androidx.cardview.widget.CardView
         android:id="@+id/cardview"
-        android:layout_width="347dp"
-        android:layout_height="106dp"
-        app:cardCornerRadius="8dp">
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="#DC1717"
+        app:cardCornerRadius="10dp"
+        tools:layout_editor_absoluteX="5dp"
+        tools:layout_editor_absoluteY="5dp">
 
         <LinearLayout
-            android:layout_width="339dp"
-            android:layout_height="match_parent"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#4FD562"
             android:orientation="horizontal"
             android:padding="5dp">
 
             <ImageView
                 android:id="@+id/item_image"
-                android:layout_width="80dp"
-                android:layout_height="85dp"
-                android:src="@drawable/logo"
-
-                />
+                android:layout_width="0dp"
+                android:layout_height="100dp"
+                android:layout_weight="1"
+                android:src="@drawable/logo" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_weight="2"
                 android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/item_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
                     android:layout_margin="10dp"
                     android:padding="5dp"
                     android:text="TextView"
-                    android:textSize="18dp" />
-
-                <TextView
-                    android:id="@+id/item_nd"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
-                    android:text="TextView"
-                    android:textSize="16dp" />
+                    android:textSize="20dp" />
 
             </LinearLayout>
-
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

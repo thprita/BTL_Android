@@ -10,9 +10,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
-import com.example.myapplication.data.Movie;
 import com.example.myapplication.data.Review;
 
 import java.util.List;
@@ -21,7 +19,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     private List<Review> reviewlist;
     private final Context context;
 
-    public CommentAdapter(List<Review> reviewlist, Context context) {
+    public CommentAdapter(Context context) {
         this.reviewlist = reviewlist;
         this.context = context;
     }
@@ -37,7 +35,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             super(view);
             itemImage = view.findViewById(R.id.item_image);
             itemText = view.findViewById(R.id.item_text);
-            itemND = view.findViewById(R.id.item_nd);
+         //   itemND = view.findViewById(R.id.item_nd);
         }
     }
     @NonNull
@@ -50,12 +48,12 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Review review = reviewlist.get(position);
-        Movie movie = new Movie();
+      //  Movie movie = new Movie();
         holder.itemText.setText(review.getComment());
-        Glide.with(context)
-                .load(movie.getImageUrl())
-                .into(holder.itemImage);
-        holder.itemND.setText(movie.getTitle());
+//        Glide.with(context)
+//                .load(movie.getImageUrl())
+//                .into(holder.itemImage);
+     //   holder.itemND.setText(movie.getTitle());
     }
 
     @Override

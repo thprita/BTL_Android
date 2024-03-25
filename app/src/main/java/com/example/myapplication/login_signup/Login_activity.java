@@ -3,7 +3,9 @@ package com.example.myapplication.login_signup;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -19,8 +21,8 @@ import com.example.myapplication.user.Home_activity;
 
 public class Login_activity extends AppCompatActivity {
     EditText edtuser,edtpass;
-    Button btnlogin;
-    TextView tvsignup,tvpass;
+    Button btnlogin,tvsignup;
+    TextView tvpass;
     Data datatk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +50,15 @@ public class Login_activity extends AppCompatActivity {
                 if (datatk.checkLogin(username, password)) {
                     if (username.equals("admin") && password.equals("admin")) {
                         Intent intent = new Intent(Login_activity.this, Homeadmin.class);
+
                         startActivity(intent);
                     } else {
                         Intent intent = new Intent(Login_activity.this, Home_activity.class);
+                        SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        editor.putString("USERNAME", username);
+                        editor.apply();
+
                         startActivity(intent);
                     }
                 } else {

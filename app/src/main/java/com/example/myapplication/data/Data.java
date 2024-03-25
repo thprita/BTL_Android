@@ -115,6 +115,25 @@ public class Data extends SQLiteOpenHelper {
         return count > 0;
     }
     @SuppressLint("Range")
+    public int getUserId(String username) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = { USER_ID };
+        String selection = USER_NAME + " = ?";
+        String[] selectionArgs = { username };
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+        int userId = -1;
+
+        if (cursor.moveToFirst()) {
+            userId = cursor.getInt(cursor.getColumnIndex(USER_ID));
+        }
+
+        cursor.close();
+        db.close();
+        return userId;
+    }
+
+
+    @SuppressLint("Range")
     public String getPasswordByUsername(String username) {
         SQLiteDatabase db = this.getReadableDatabase();
         String password = null;
@@ -179,6 +198,36 @@ public class Data extends SQLiteOpenHelper {
         return movieList;
     }
     @SuppressLint("Range")
+    public List<Movie> getMoviesByImageUrl(String imageUrl) {
+        List<Movie> movieList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = {
+                MOVIE_ID,
+                MOVIE_TITLE,
+                MOVIE_DESCRIPTION,
+                MOVIE_IMAGE_URL,
+                MOVIE_VIDEO_URL,
+                MOVIE_WATCH_POSITION
+        };
+        String selection = MOVIE_IMAGE_URL + "=?";
+        String[] selectionArgs = { imageUrl };
+        Cursor cursor = db.query(TABLE_MOVIES, columns, selection, selectionArgs, null, null, null);
+        while (cursor.moveToNext()) {
+            Movie movie = new Movie();
+            movie.setIdmovie(cursor.getInt(cursor.getColumnIndex(MOVIE_ID)));
+            movie.setTitle(cursor.getString(cursor.getColumnIndex(MOVIE_TITLE)));
+            movie.setDescription(cursor.getString(cursor.getColumnIndex(MOVIE_DESCRIPTION)));
+            movie.setImageUrl(cursor.getString(cursor.getColumnIndex(MOVIE_IMAGE_URL)));
+            movie.setVideoUrl(cursor.getString(cursor.getColumnIndex(MOVIE_VIDEO_URL)));
+            movie.setWatchPosition(cursor.getFloat(cursor.getColumnIndex(MOVIE_WATCH_POSITION)));
+            movieList.add(movie);
+        }
+        cursor.close();
+        db.close();
+        return movieList;
+    }
+
+    @SuppressLint("Range")
     public Movie getMovieById(int movieId) {
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.query(TABLE_MOVIES, null, MOVIE_ID + "=?", new String[]{String.valueOf(movieId)}, null, null, null);
@@ -225,6 +274,43 @@ public class Data extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return reviewList;
+    }
+    @SuppressLint("Range")
+    public List<Review> getAllReviewsID(int idmovie) {
+        List<Review> reviewList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_REVIEWS + " WHERE " + REVIEW_MOVIE_ID + " = ?", new String[]{String.valueOf(idmovie)});
+        while (cursor.moveToNext()) {
+            Review review = new Review();
+            review.setId(cursor.getInt(cursor.getColumnIndex(REVIEW_ID)));
+            review.setMovie_id(cursor.getInt(cursor.getColumnIndex(REVIEW_MOVIE_ID)));
+            review.setUser_id(cursor.getInt(cursor.getColumnIndex(REVIEW_USER_ID)));
+            review.setRating(cursor.getInt(cursor.getColumnIndex(REVIEW_RATING)));
+            review.setComment(cursor.getString(cursor.getColumnIndex(REVIEW_COMMENT)));
+            reviewList.add(review);
+        }
+        cursor.close();
+        db.close();
+        return reviewList;
+    }
+    @SuppressLint("Range")
+    public float getAverageRating() {
+        int totalRating = 0;
+        int totalReviews = 0;
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT " + REVIEW_RATING + " FROM " + TABLE_REVIEWS, null);
+        while (cursor.moveToNext()) {
+            int rating = cursor.getInt(cursor.getColumnIndex(REVIEW_RATING));
+            totalRating += rating;
+            totalReviews++;
+        }
+        cursor.close();
+        db.close();
+        if (totalReviews > 0) {
+            return (float) totalRating / totalReviews;
+        } else {
+            return 0;
+        }
     }
 
 

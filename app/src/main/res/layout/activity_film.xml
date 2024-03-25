@@ -13,20 +13,21 @@
 
         <ImageView
             android:id="@+id/imagechitiet"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:src="@drawable/logo"
-            android:layout_gravity="center_vertical" />
+            android:layout_width="58dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:src="@drawable/muiten" />
 
         <TextView
-            android:id="@+id/textView9"
-            android:layout_width="wrap_content"
+            android:id="@+id/textviewtitle"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginStart="8dp"
-            android:text="OK NMHA"
-            android:textColor="#FFF"
-            android:textSize="16sp" />
+            android:layout_weight="1"
+            android:text="TextView"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textAlignment="viewStart"/>
     </LinearLayout>
 
     <!-- WebView -->

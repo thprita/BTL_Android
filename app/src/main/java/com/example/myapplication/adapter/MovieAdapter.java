@@ -2,6 +2,7 @@ package com.example.myapplication.adapter;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,11 +15,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.data.Movie;
+import com.example.myapplication.user.Home_activity;
 import com.example.myapplication.user.chitietfilm;
 
 import java.util.List;
 
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+    Home_activity homeActivity;
     private List<Movie> movieList;
     private final Context context;
     private OnMovieClickListener onMovieClickListener;
@@ -61,6 +64,7 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+        homeActivity = new Home_activity();
         Movie movie = movieList.get(position);
         Glide.with(context)
                 .load(movie.getImageUrl())
@@ -72,12 +76,17 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             @Override
             public void onMovieClick(View view, int position, boolean isclick) {
                 if(!isclick){
+                    SharedPreferences sharedPreferences = context.getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
+                    String username = sharedPreferences.getString("USERNAME", "");
                     Intent intent = new Intent(context, chitietfilm.class);
+                    intent.putExtra("MOVIE_ID",movie.getIdmovie());
+                    intent.putExtra("USERNAME", username);
                     intent.putExtra("MOVIE_TITLE", movie.getTitle());
                     intent.putExtra("MOVIE_IMAGE", movie.getImageUrl());
                     intent.putExtra("MOVIE_VIDEO", movie.getVideoUrl());
                     intent.putExtra("MOVIE_DESCRIPTION", movie.getDescription());
-                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK); // Đảm bảo activity được khởi tạo từ Adapter
+
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     context.startActivity(intent);
                 }
             }
