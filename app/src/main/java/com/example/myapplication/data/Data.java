@@ -7,6 +7,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import androidx.annotation.Nullable;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +30,7 @@ public class Data extends SQLiteOpenHelper {
     private static final String MOVIE_VIDEO_URL = "video_url";
     private static final String MOVIE_WATCH_POSITION = "watch_position";
 
+
     //Review
     // Reviews
     private static final String TABLE_REVIEWS = "Reviews";
@@ -36,6 +39,13 @@ public class Data extends SQLiteOpenHelper {
     private static final String REVIEW_USER_ID = "user_id";
     private static final String REVIEW_RATING = "rating";
     private static final String REVIEW_COMMENT = "comment";
+    //WatchHistory
+    private static final String TABLE_WATCHS = "Watchs";
+    public static final String COLUMN_ID = "id";
+    public static final String COLUMN_MOVIE_ID = "movie_id";
+    public static final String COLUMN_USER_ID = "user_id";
+    public static final String COLUMN_POSITION = "position";
+    public static final String COLUMN_TIMESTAMP = "timestamp";
     public Data(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -66,6 +76,16 @@ public class Data extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + REVIEW_USER_ID + ") REFERENCES " + TABLE_USER + "(" + USER_ID + ")" +
                 ")";
         db.execSQL(create_table_reviews);
+        String create_table_watchs = "CREATE TABLE " + TABLE_WATCHS + " (" +
+                COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
+                COLUMN_MOVIE_ID + " INTEGER NOT NULL," +
+                COLUMN_USER_ID + " INTEGER NOT NULL," +
+                COLUMN_POSITION + " INTEGER," +
+                COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP," +
+                "FOREIGN KEY (" + COLUMN_MOVIE_ID + ") REFERENCES Movies(id)," +
+                "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES Users(id)" +
+                ");";
+        db.execSQL(create_table_watchs);
     }
 
     @Override
@@ -73,6 +93,7 @@ public class Data extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_USER);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_REVIEWS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHS);
         onCreate(db);
     }
 
@@ -130,6 +151,23 @@ public class Data extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         return userId;
+    }
+    @SuppressLint("Range")
+    public String getUsername(int userId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String[] columns = { USER_NAME };
+        String selection = USER_ID + " = ?";
+        String[] selectionArgs = { String.valueOf(userId) };
+        Cursor cursor = db.query(TABLE_USER, columns, selection, selectionArgs, null, null, null);
+        String username = null;
+
+        if (cursor.moveToFirst()) {
+            username = cursor.getString(cursor.getColumnIndex(USER_NAME));
+        }
+
+        cursor.close();
+        db.close();
+        return username;
     }
 
 
@@ -307,7 +345,8 @@ public class Data extends SQLiteOpenHelper {
         cursor.close();
         db.close();
         if (totalReviews > 0) {
-            return (float) totalRating / totalReviews;
+            float averageRating = (float) totalRating / totalReviews;
+            return Math.round(averageRating * 100.0) / 100.0f;
         } else {
             return 0;
         }

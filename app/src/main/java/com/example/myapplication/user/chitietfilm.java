@@ -30,7 +30,7 @@ import java.util.Objects;
 
 public class chitietfilm extends AppCompatActivity {
     private ImageView imageView,imagetl2;
-    private TextView titleTextView,tvuser,tvtitle,descriptionTextView;
+    private TextView titleTextView,tvtitle,descriptionTextView,tvposition;
     private Button xemButton,btnbinhluan;
     EditText edtbinhluan,edtdanhgia;
     private String videoUrl,username;
@@ -45,30 +45,34 @@ public class chitietfilm extends AppCompatActivity {
         Anhxa();
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
-            int idmovie = getIntent().getIntExtra("MOVIE_ID", 0);
+            int idmovie = extras.getInt("MOVIE_ID");
             String title = extras.getString("MOVIE_TITLE");
             String description = extras.getString("MOVIE_DESCRIPTION");
             String img = extras.getString("MOVIE_IMAGE");
             videoUrl = extras.getString("MOVIE_VIDEO");
             username = extras.getString("USERNAME");
+           String positionwatch = String.valueOf(extras.getFloat("MOVIE_WATCH"));
             String textToShow = "TK: " + username;
-            tvuser.setText(textToShow);
             tvtitle.setText(title);
-            int id_username = data.getUserId(username);
+            int id_user = data.getUserId(username);
             recyclerView.setAdapter(adapter);
             recyclerView.setLayoutManager(new LinearLayoutManager(this));
             reviewList = data.getAllReviewsID(idmovie);
             adapter.setData(reviewList);
-            titleTextView.setText(title);
-            int id_user = data.getUserId(username);
-            descriptionTextView.setText(description);
+            String rating = String.valueOf(data.getAverageRating());
+            String ra = "Đánh giá: " + rating;
+            titleTextView.setText(ra);
+            String mota ="Mô tả: " +description;
+            descriptionTextView.setText(mota);
+            String position = "Thời lượng phim: " + positionwatch;
+            tvposition.setText(position);
             Glide.with(this).load(img).into(imageView);
 
             xemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     Intent intent = new Intent(chitietfilm.this, filmActivity.class);
-                    intent.putExtra("MOVIE_TITLE",title);
+                    intent.putExtra("MOVIE_TITLE", title);
                     intent.putExtra("VIDEO_URL", videoUrl);
                     startActivity(intent);
                 }
@@ -77,23 +81,40 @@ public class chitietfilm extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String binhluan = edtbinhluan.getText().toString();
-                    int danhgia = Integer.parseInt(edtdanhgia.getText().toString());
-                    int id_movie = idmovie;
-                    int iduser = id_user;
-                    Review review = new Review();
-                    review.setMovie_id(id_movie);
-                    review.setUser_id(iduser);
-                    review.setRating(danhgia);
-                    review.setComment(binhluan);
+                    String danhgiaStr = edtdanhgia.getText().toString();
 
-                    data.addReview(review);
-                    reviewList.add(review);
-                    adapter.setData(reviewList);
+                    if (danhgiaStr.isEmpty()) {
+                        Toast.makeText(chitietfilm.this, "Vui lòng nhập đánh giá!", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+                    try {
+                        int danhgia = Integer.parseInt(danhgiaStr);
+                        if (danhgia < 0 || danhgia > 10) {
+                            Toast.makeText(chitietfilm.this, "Đánh giá phải từ 0 đến 10!", Toast.LENGTH_SHORT).show();
+                            return;
+                        }
+                        int iduser = id_user;
+                        Review review = new Review();
+                        review.setMovie_id(idmovie);
+                        review.setUser_id(iduser);
+                        review.setRating(danhgia);
+                        review.setComment(binhluan);
 
-                    // Thông báo cho RecyclerView biết để cập nhật giao diện
-                    adapter.notifyDataSetChanged();
-                    Toast.makeText(chitietfilm.this, "Bình luận thành công!", Toast.LENGTH_SHORT).show();
-
+                        data.addReview(review);
+                        reviewList.add(review);
+                        adapter.setData(reviewList);
+                        adapter.notifyDataSetChanged();
+                        Toast.makeText(chitietfilm.this, "Bình luận thành công!", Toast.LENGTH_SHORT).show();
+                        titleTextView.setText("");
+                        String averageRating = String.valueOf(data.getAverageRating());
+                        String rating = String.valueOf(averageRating);
+                        String ra = "Đánh giá: " + rating;
+                        titleTextView.setText(ra);
+                        edtbinhluan.setText("");
+                        edtdanhgia.setText("");
+                    } catch (NumberFormatException e) {
+                        Toast.makeText(chitietfilm.this, "Đánh giá phải là một số nguyên!", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -106,7 +127,6 @@ public class chitietfilm extends AppCompatActivity {
         descriptionTextView = findViewById(R.id.text_description);
         xemButton = findViewById(R.id.btnxemfilm);
         recyclerView = findViewById(R.id.recyclerbl);
-        tvuser = findViewById(R.id.tvuser);
         data = new Data(this);
         adapter = new CommentAdapter(this);
         tvtitle = findViewById(R.id.tvtitle);
@@ -114,6 +134,7 @@ public class chitietfilm extends AppCompatActivity {
         btnbinhluan = findViewById(R.id.btnbinhluan);
         edtbinhluan=findViewById(R.id.edtbinhluan);
         edtdanhgia = findViewById(R.id.edtdanhgia);
+        tvposition = findViewById(R.id.text_watch_position);
     }
     public void trolai(){
         imagetl2.setOnClickListener(new View.OnClickListener() {
