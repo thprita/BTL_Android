@@ -14,8 +14,8 @@
             android:layout_width="58dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/muiten"
-            android:scaleType="centerInside"  />
+            android:scaleType="centerInside"
+            android:src="@drawable/muiten" />
 
         <TextView
             android:id="@+id/tvTitle"
@@ -25,14 +25,14 @@
             android:textSize="20sp"
             android:padding="10dp"
             android:textAlignment="viewStart"
-            android:textStyle="bold"
-            android:text="Thông tin phim"
-         />
+            android:layout_marginBottom="16dp"
+            android:text="Thông tin người dùng"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="387dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <ScrollView
@@ -47,52 +47,31 @@
 
                 <!-- EditText để nhập tiêu đề -->
                 <EditText
-                    android:id="@+id/edtidmovie"
+                    android:id="@+id/edtusername"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Nhập tiêu đề" />
+                    android:hint="Nhập tài khoản" />
 
                 <!-- EditText để nhập nội dung -->
                 <EditText
-                    android:id="@+id/edtnd"
+                    android:id="@+id/edtpassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Nhập nội dung" />
-
+                    android:hint="Nhập mật khẩu" />
                 <EditText
-                    android:id="@+id/edttheloai"
+                    android:id="@+id/edtavatar"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Nhập thể loại" />
-
-                <!-- EditText để nhập URL hình ảnh -->
+                    android:hint="Nhập avatar" />
                 <EditText
-                    android:id="@+id/edtimg"
+                    android:id="@+id/edtmobile"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="16dp"
-                    android:hint="Nhập URL hình ảnh" />
-
-                <!-- EditText để nhập URL video -->
-                <EditText
-                    android:id="@+id/edtvideo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Nhập URL video" />
-
-                <!-- EditText để nhập vị trí xem -->
-                <EditText
-                    android:id="@+id/edtwatch"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Nhập thời lượng xem" />
-
-                <!-- EditText để nhập ID -->
+                    android:hint="Mobile" />
                 <EditText
                     android:id="@+id/edtid"
                     android:layout_width="match_parent"
@@ -166,3 +145,4 @@
     <!-- ListView để hiển thị danh sách -->
 
 </LinearLayout>
+

@@ -12,19 +12,21 @@
 
         <ImageView
             android:id="@+id/tl1"
-            android:layout_width="200dp"
-            android:layout_height="40dp"
-            android:layout_marginRight="20dp"
+            android:layout_width="58dp"
+            android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/muiten" />
+            android:src="@drawable/muiten"
+            android:scaleType="centerInside" />
 
         <TextView
             android:id="@+id/tvTitle"
-            android:layout_width="320dp"
+            android:layout_width="350dp"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:textSize="20sp"
+            android:padding="10dp"
+            android:textAlignment="viewStart"
             android:text="Thông tin bình luận"
-            android:textSize="24sp"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -68,12 +70,6 @@
                     android:hint="User ID" />
 
                 <!-- EditText để nhập rating -->
-                <EditText
-                    android:id="@+id/edtrating"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp"
-                    android:hint="Rating" />
 
                 <!-- EditText để nhập comment -->
                 <EditText
@@ -139,7 +135,7 @@
     </LinearLayout>
 
     <ListView
-        android:id="@+id/lv"
+        android:id="@+id/listview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 

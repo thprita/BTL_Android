@@ -4,16 +4,18 @@ public class Taikhoan {
     private int idtk;
     private String username;
     private String password;
+    private String avatar;
     private String mobile;
 
     public Taikhoan() {
         // Constructor mặc định
     }
 
-    public Taikhoan(int idtk, String username, String password, String mobile) {
+    public Taikhoan(int idtk, String username, String password,String avatar, String mobile) {
         this.idtk = idtk;
         this.username = username;
         this.password = password;
+        this.avatar = avatar;
         this.mobile = mobile;
     }
 
@@ -41,6 +43,14 @@ public class Taikhoan {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getAvatar() {
+        return avatar;
+    }
+
+    public void setAvatar(String avatar) {
+        this.avatar = avatar;
     }
 
     public String getMobile() {

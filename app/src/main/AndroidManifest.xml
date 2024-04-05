@@ -15,10 +15,28 @@
         android:theme="@style/Theme.MyApplication"
         tools:targetApi="31">
         <activity
+            android:name=".user.searchfilm_activity"
+            android:exported="false" />
+        <activity
+            android:name=".user.ttfilm"
+            android:exported="false" />
+        <activity
+            android:name=".user.homefilm"
+            android:exported="false" />
+        <activity
             android:name=".user.chitietuser"
             android:exported="false" />
         <activity
-            android:name=".admin.EditReview"
+            android:name=".user.UserActivity"
+            android:exported="false" />
+        <activity
+            android:name=".admin.EditRating"
+            android:exported="false" />
+        <activity
+            android:name=".admin.Edituser"
+            android:exported="false" />
+        <activity
+            android:name=".admin.EditComment"
             android:exported="false" />
         <activity
             android:name=".user.chitietfilm"

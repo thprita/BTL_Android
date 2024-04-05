@@ -12,7 +12,7 @@
     <!-- ImageView to display movie image -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="50dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -20,8 +20,9 @@
             android:layout_width="58dp"
             android:layout_height="50dp"
             android:layout_weight="1"
-            android:src="@drawable/muiten"
-            android:scaleType="centerInside"/>
+
+            android:scaleType="centerInside"
+            android:src="@drawable/muiten"/>
 
         <TextView
             android:id="@+id/tvtitle"
@@ -53,25 +54,77 @@
         android:text="Movie Description"
         android:textSize="16sp"
         android:textColor="@android:color/black" />
-
-    <!-- TextView for watch position -->
-    <TextView
-        android:id="@+id/text_watch_position"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="Watch Position: 0 min"
-        android:textSize="14sp"
-        android:textColor="@android:color/black" />
-
         <TextView
-            android:id="@+id/text_title"
+            android:id="@+id/text_category"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
-            android:text="Movie Title"
-            android:textColor="@android:color/black"
-            android:textSize="18sp" />
+            android:text="Movie Category"
+            android:textSize="16sp"
+            android:textColor="@android:color/black" />
+
+    <!-- TextView for watch position -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            <TextView
+                android:id="@+id/text_watch_position"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Watch Position: 0 min"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+            <TextView
+                android:id="@+id/text_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:paddingLeft="60dp"
+                android:text="Movie Title"
+                android:textColor="@android:color/black"
+                android:textSize="16sp" />
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tvdanhgia"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="TextView"
+                android:textSize="16sp" />
+
+            <EditText
+                android:id="@+id/edtsuadg"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10"
+                android:hint="Sửa đáng giá"
+                android:inputType="text"
+                android:textSize="16sp" />
+
+            <Button
+                android:id="@+id/btnsua1"
+                android:layout_width="131dp"
+                android:layout_height="wrap_content"
+                android:text="Sửa" />
+
+            <Button
+                android:id="@+id/btnupdate"
+                android:layout_width="131dp"
+                android:layout_height="wrap_content"
+                android:text="Update" />
+        </LinearLayout>
 
         <Button
             android:id="@+id/btnxemfilm"
@@ -107,32 +160,53 @@
                 android:inputType="text" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/textView8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Đánh giá     "
-                android:textSize="20sp" />
-
-            <EditText
-                android:id="@+id/edtdanhgia"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:inputType="number" />
-        </LinearLayout>
-
-
         <Button
             android:id="@+id/btnbinhluan"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Bình luận" />
+
+        <LinearLayout
+            android:id="@+id/iddanhgia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Đánh giá     "
+                    android:textSize="20sp" />
+
+                <EditText
+                    android:id="@+id/edtdanhgia"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:ems="10"
+                    android:inputType="number" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <Button
+                    android:id="@+id/btndanhgia"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Đánh giá" />
+            </LinearLayout>
+
+        </LinearLayout>
+
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerbl"

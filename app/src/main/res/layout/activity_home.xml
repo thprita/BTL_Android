@@ -15,7 +15,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
             android:background="#37B55B"
             android:orientation="horizontal">
 
@@ -53,37 +52,35 @@
                 android:id="@+id/textView7"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#A6981A"
+                android:paddingLeft="10dp"
                 android:text="Phim hot"
                 android:textColor="#BF1111"
                 android:textSize="20sp"
-                android:textStyle="bold"
-                android:paddingLeft="10dp"/>
+                android:textStyle="bold" />
 
             <ViewFlipper
                 android:id="@+id/viewflipper"
                 android:layout_width="match_parent"
-                android:layout_height="157dp">
-
-                <!-- Đặt các phần tử cho ViewFlipper tại đây (nếu có) -->
-
-            </ViewFlipper>
+                android:layout_height="157dp"/>
         </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="400dp"
+            android:layout_height="343dp"
             android:background="#5992d2"
             android:orientation="vertical">
 
             <TextView
                 android:id="@+id/danhsachphim"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
+                android:paddingLeft="10dp"
+                android:background="#B4C513"
                 android:text="Danh sách phim"
                 android:textColor="#BF1111"
                 android:textSize="20sp"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/recycleview"
@@ -99,32 +96,33 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="40dp"
-            android:background="#ED1E1E"
+            android:background="@color/white"
             android:orientation="horizontal"
             android:padding="5dp">
 
             <ImageView
                 android:id="@+id/imagehome"
-                android:layout_width="184dp"
-                android:layout_height="match_parent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/trangchu" />
 
             <ImageView
                 android:id="@+id/imagefilm"
-                android:layout_width="204dp"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-            android:src="@drawable/taikhoan" />
+                android:src="@drawable/logo" />
 
             <ImageView
-                android:id="@+id/iamgetk"
-                android:layout_width="wrap_content"
+                android:id="@+id/imagekh"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:src="@drawable/taikhoan" />
 
         </LinearLayout>
+
 
     </LinearLayout>
 </ScrollView>

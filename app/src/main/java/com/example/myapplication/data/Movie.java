@@ -3,12 +3,11 @@ public class Movie {
     private int idmovie;
     private String title;
 
-
-
     private String description;
+    private String category;
     private String imageUrl;
     private String videoUrl;
-    private float watchPosition;
+    private float duration;
     public Movie(){
 
     }
@@ -16,17 +15,17 @@ public class Movie {
         this.imageUrl = imageUrl;
         this.title = title;
     }
-    public Movie(int idmovie, String title, String description, String imageUrl, String videoUrl, float watchPosition) {
+
+    public Movie(int idmovie, String title, String description, String category, String imageUrl, String videoUrl, float duration) {
         this.idmovie = idmovie;
         this.title = title;
         this.description = description;
+        this.category = category;
         this.imageUrl = imageUrl;
         this.videoUrl = videoUrl;
-        this.watchPosition = watchPosition;
+        this.duration = duration;
     }
 
-
-    // Getters and setters
     public int getIdmovie() {
         return idmovie;
     }
@@ -51,6 +50,14 @@ public class Movie {
         this.description = description;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -67,11 +74,11 @@ public class Movie {
         this.videoUrl = videoUrl;
     }
 
-    public float getWatchPosition() {
-        return watchPosition;
+    public float getDuration() {
+        return duration;
     }
 
-    public void setWatchPosition(float watchPosition) {
-        this.watchPosition = watchPosition;
+    public void setDuration(float duration) {
+        this.duration = duration;
     }
 }

@@ -19,6 +19,7 @@ public class filmActivity extends AppCompatActivity {
     private WebView webView;
     ImageView imageView;
     private ResourceBundle extras;
+    private String videoUrl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,17 +31,17 @@ public class filmActivity extends AppCompatActivity {
 
         String title = getIntent().getStringExtra("MOVIE_TITLE");
         textView.setText(title);
+
         // Cấu hình WebView
         WebSettings webSettings = webView.getSettings();
         webSettings.setJavaScriptEnabled(true);
 
-        String videoUrl = getIntent().getStringExtra("VIDEO_URL");
+        videoUrl = getIntent().getStringExtra("VIDEO_URL");
         if (videoUrl != null && !videoUrl.isEmpty()) {
-            // Load videoUrl vào WebView
             webView.loadData(videoUrl, "text/html", "utf-8");
         } else {
             Toast.makeText(this, "Video không khả dụng", Toast.LENGTH_SHORT).show();
-            finish(); // Đóng activity nếu không có videoUrl
+            finish();
         }
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -49,4 +50,5 @@ public class filmActivity extends AppCompatActivity {
             }
         });
     }
+
 }

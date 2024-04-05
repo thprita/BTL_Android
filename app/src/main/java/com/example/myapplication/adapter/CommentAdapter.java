@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.data.Data;
 import com.example.myapplication.data.Review;
@@ -39,7 +40,7 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             super(view);
             itemImage = view.findViewById(R.id.item_image);
             itemText = view.findViewById(R.id.item_text);
-            tvtitlecomment = view.findViewById(R.id.tvtitlecomment);
+            tvtitlecomment = view.findViewById(R.id.tvtitlefilm);
         }
     }
     @NonNull
@@ -58,12 +59,14 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
         String username = sharedPreferences.getString("USERNAME", "");
         int usern = review.getUser_id();
         String userna = data.getUsername(usern);
+        String avatar = data.getAvatar(userna);
         holder.tvtitlecomment.setText(userna);
 
-//        Glide.with(context)
-//                .load(movie.getImageUrl())
-//                .into(holder.itemImage);
-     //   holder.itemND.setText(movie.getTitle());
+        Glide.with(context)
+                .load(avatar)
+                .error(R.drawable.taikhoan)
+                .into(holder.itemImage);
+
     }
 
     @Override

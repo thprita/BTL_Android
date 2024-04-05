@@ -15,37 +15,37 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.data.Movie;
-import com.example.myapplication.user.Home_activity;
 import com.example.myapplication.user.chitietfilm;
+import com.example.myapplication.user.searchfilm_activity;
 
 import java.util.List;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
-    Home_activity homeActivity;
-    private List<Movie> movieList;
+public class FilmAdapter  extends RecyclerView.Adapter<FilmAdapter.ViewHolder> {
+  searchfilm_activity searchfilm_activity;
+    private List<Movie> filmList;
     private final Context context;
     private OnMovieClickListener onMovieClickListener;
 
-    public MovieAdapter(Context context) {
+    public FilmAdapter(Context context) {
         this.context = context;
     }
-    public void setData(List<Movie> movieList) {
-        this.movieList = movieList;
+
+
+    public void setData(List<Movie> filmList) {
+        this.filmList = filmList;
         notifyDataSetChanged();
     }
-
-    public static class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         ImageView imageView;
         TextView textView;
         private OnMovieClickListener onMovieClickListener;
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             imageView = itemView.findViewById(R.id.item_image);
-            textView = itemView.findViewById(R.id.item_text);
+            textView = itemView.findViewById(R.id.tvtitlefilm);
             itemView.setOnClickListener(this);
-        }
 
+        }
         public void setOnMovieClickListener(OnMovieClickListener onMovieClickListener) {
             this.onMovieClickListener = onMovieClickListener;
         }
@@ -54,27 +54,23 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
             onMovieClickListener.onMovieClick(v,getAdapterPosition(),false);
         }
     }
-
     @NonNull
     @Override
-    public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.movie_item, parent, false);
-        return new ViewHolder(view);
-
+    public FilmAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.film_item, parent, false);
+        return new FilmAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        homeActivity = new Home_activity();
-        Movie movie = movieList.get(position);
+    public void onBindViewHolder(@NonNull FilmAdapter.ViewHolder holder, int position) {
+        searchfilm_activity = new searchfilm_activity();
+        Movie movie = filmList.get(position);
         Glide.with(context)
                 .load(movie.getImageUrl())
                 .error(R.drawable.background) // error_image là resource ID của ảnh hiển thị khi có lỗi
                 .into(holder.imageView);
 
         holder.textView.setText(movie.getTitle());
-
-        // Thiết lập OnMovieClickListener cho ViewHolder
         holder.setOnMovieClickListener(new OnMovieClickListener() {
             @Override
             public void onMovieClick(View view, int position, boolean isclick) {
@@ -100,6 +96,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
 
     @Override
     public int getItemCount() {
-        return movieList.size();
+        return filmList.size();
     }
 }

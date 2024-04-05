@@ -1,20 +1,20 @@
 package com.example.myapplication.data;
 
-public class Review {
+public class Rating {
     private int id;
     private int movie_id;
     private int user_id;
-    private String comment;
+    private int rating;
 
-    public Review() {
+    public Rating() {
         // Constructor mặc định
     }
 
-    public Review(int id, int movie_id, int user_id, String comment) {
+    public Rating(int id, int movie_id, int user_id, int rating) {
         this.id = id;
         this.movie_id = movie_id;
         this.user_id = user_id;
-        this.comment = comment;
+        this.rating = rating;
     }
 
     public int getId() {
@@ -41,13 +41,11 @@ public class Review {
         this.user_id = user_id;
     }
 
-
-    public String getComment() {
-        return comment;
+    public int getRating() {
+        return rating;
     }
 
-    public void setComment(String comment) {
-        this.comment = comment;
+    public void setRating(int rating) {
+        this.rating = rating;
     }
-
 }

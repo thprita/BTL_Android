@@ -21,8 +21,8 @@ import com.example.myapplication.user.Home_activity;
 
 public class Login_activity extends AppCompatActivity {
     EditText edtuser,edtpass;
-    Button btnlogin,tvsignup;
-    TextView tvpass;
+    Button btnlogin;
+    TextView tvpass,tvsignup;
     Data datatk;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,7 +35,7 @@ public class Login_activity extends AppCompatActivity {
     }
     public void Anhxa(){
         edtuser = findViewById(R.id.edtuser);
-        edtpass = findViewById(R.id.edtpass);
+        edtpass = findViewById(R.id.edtpass1);
         btnlogin = findViewById(R.id.btnlogin);
         tvsignup = findViewById(R.id.tvsignup);
         tvpass = findViewById(R.id.tvpass);

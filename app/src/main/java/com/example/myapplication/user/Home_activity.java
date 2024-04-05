@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,6 +23,10 @@ import com.example.myapplication.R;
 import com.example.myapplication.adapter.MovieAdapter;
 import com.example.myapplication.data.Data;
 import com.example.myapplication.data.Movie;
+import com.example.myapplication.data.Rating;
+import com.example.myapplication.data.Review;
+import com.example.myapplication.login_signup.Login_activity;
+import com.example.myapplication.login_signup.Signup_activity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +34,7 @@ import java.util.List;
 public class Home_activity extends AppCompatActivity {
     RecyclerView recyclerView;
     ViewFlipper viewFlipper;
+    ImageView imagehome,imagefilm,imagetk;
     Data data;
     MovieAdapter adapter;
     List<Movie> movieList;
@@ -40,31 +47,49 @@ public class Home_activity extends AppCompatActivity {
         Anhxa();
         ActionViewFlipper();
         Recyclerview();
+        imagetk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_activity.this,UserActivity.class);
+                startActivity(intent);
+            }
+        });
+        imagefilm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Home_activity.this,ttfilm.class);
+                startActivity(intent);
+            }
+        });
     }
 
     public void Anhxa() {
         viewFlipper = findViewById(R.id.viewflipper);
         recyclerView = findViewById(R.id.recycleview);
+        imagefilm = findViewById(R.id.imagefilm);
+        imagehome = findViewById(R.id.imagehome);
+        imagetk = findViewById(R.id.imagekh);
         data = new Data(this);
         adapter = new MovieAdapter(this);
     }
 
     public void Recyclerview() {
-        // Đặt LayoutManager của RecyclerView thành GridLayoutManager với số cột mong muốn
         recyclerView.setLayoutManager(new GridLayoutManager(this, 3));
         recyclerView.setAdapter(adapter);
-        // Lấy danh sách phim từ cơ sở dữ liệu và cập nhật RecyclerView
         movieList = data.getAllMovies();
         adapter.setData(movieList);
     }
 
 
     public void ActionViewFlipper() {
+        List<Rating> topRatings = data.getTop5Ratings();
         List<String> mangquangcao = new ArrayList<>();
-        mangquangcao.add("https://st.nettruyenff.com/data/comics/188/dai-quan-gia-la-ma-hoang-904.jpg");
-        mangquangcao.add("https://st.nettruyenff.com/data/comics/131/dai-vuong-tha-mang-7670.jpg");
-        mangquangcao.add("https://st.nettruyenff.com/data/comics/5/brave-bell.jpg");
-
+        for (Rating rating : topRatings) {
+            Movie movie = data.getMovieById(rating.getMovie_id());
+            if (movie != null) {
+                mangquangcao.add(movie.getImageUrl());
+            }
+        }
         for (int i = 0; i < mangquangcao.size(); i++) {
             ImageView imageView = new ImageView(getApplicationContext());
             final String imageUrl = mangquangcao.get(i);
@@ -77,8 +102,6 @@ public class Home_activity extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     String imageUrl = (String) v.getTag();
-
-                    // Duyệt qua danh sách phim để tìm phim có URL ảnh tương ứng
                     for (Movie movie : movieList) {
                         if (imageUrl.equals(movie.getImageUrl())) {
                             SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
@@ -90,6 +113,8 @@ public class Home_activity extends AppCompatActivity {
                             intent.putExtra("MOVIE_IMAGE", movie.getImageUrl());
                             intent.putExtra("MOVIE_VIDEO", movie.getVideoUrl());
                             intent.putExtra("MOVIE_DESCRIPTION", movie.getDescription());
+                            intent.putExtra("MOVIE_CATEGORY", movie.getCategory());
+                            intent.putExtra("MOVIE_DURATION", movie.getDuration());
                             startActivity(intent);
                             return;
 
@@ -112,12 +137,11 @@ public class Home_activity extends AppCompatActivity {
     public String getUser() {
         String username = getIntent().getStringExtra("USERNAME");
         if (username != null && !username.isEmpty()) {
-            // Trả về tên người dùng nếu tồn tại và không rỗng
             return username;
         } else {
-            // Trả về null nếu không có tên người dùng hoặc rỗng
             return null;
         }
     }
+
 }
 
