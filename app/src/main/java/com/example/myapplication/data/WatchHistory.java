@@ -4,16 +4,16 @@ public class WatchHistory {
     private int id;
     private int movieId;
     private int userId;
-    private int position;
-    private String timestamp;
+    private float position;
+    public WatchHistory(){
 
+    }
     // Constructor
-    public WatchHistory(int id, int movieId, int userId, int position, String timestamp) {
+    public WatchHistory(int id, int movieId, int userId, int position) {
         this.id = id;
         this.movieId = movieId;
         this.userId = userId;
         this.position = position;
-        this.timestamp = timestamp;
     }
 
     // Getter và Setter cho các trường
@@ -41,19 +41,11 @@ public class WatchHistory {
         this.userId = userId;
     }
 
-    public int getPosition() {
+    public float getPosition() {
         return position;
     }
 
-    public void setPosition(int position) {
+    public void setPosition(float position) {
         this.position = position;
-    }
-
-    public String getTimestamp() {
-        return timestamp;
-    }
-
-    public void setTimestamp(String timestamp) {
-        this.timestamp = timestamp;
     }
 }

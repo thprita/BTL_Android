@@ -9,7 +9,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/cardmovie"
         android:layout_width="356dp"
-        android:layout_height="122dp"
+        android:layout_height="wrap_content"
         android:layout_margin="5dp"
         android:background="#DC1717"
         app:cardCornerRadius="10dp"
@@ -40,16 +40,16 @@
                     android:id="@+id/tvtitlefilm"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="13dp"
+                    android:layout_marginLeft="5dp"
                     android:text="TextView"
                     android:textColor="#DF1010"
                     android:textSize="18dp" />
 
                 <TextView
                     android:id="@+id/item_text"
-                    android:layout_width="wrap_content"
+                    android:layout_width="190dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="10dp"
+                    android:layout_margin="5dp"
                     android:padding="5dp"
                     android:text="TextView"
                     android:textSize="16dp" />

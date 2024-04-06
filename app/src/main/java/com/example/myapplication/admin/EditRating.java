@@ -17,7 +17,6 @@ import com.example.myapplication.R;
 import com.example.myapplication.data.Data;
 import com.example.myapplication.data.Movie;
 import com.example.myapplication.data.Rating;
-import com.example.myapplication.data.Review;
 import com.example.myapplication.data.Taikhoan;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class EditRating extends AppCompatActivity {
         edtId = findViewById(R.id.edtid);
         edtMovieId = findViewById(R.id.edtmovieid);
         edtUserId = findViewById(R.id.edtuserid);
-        edtRating = findViewById(R.id.edtrating);
+        edtRating = findViewById(R.id.edtvt);
         imagetl = findViewById(R.id.tl1);
         btnThem = findViewById(R.id.btnthem);
         btnSua = findViewById(R.id.btnsua);

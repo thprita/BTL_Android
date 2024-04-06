@@ -43,13 +43,19 @@ public class Data extends SQLiteOpenHelper {
     private static final String RATINGS_MOVIE_ID = "movie_id";
     private static final String RATINGS_USER_ID = "user_id";
     private static final String RATINGS_RATING = "rating";
+    //Theo dõi
+    private static final String TABLE_MONITORS = "monitors";
+    private static final String MONITORS_ID = "id";
+    private static final String MONITORS_MOVIE_ID = "movie_id";
+    private static final String MONITORS_USER_ID = "user_id";
+    private static final String MONITORS_MONITOR = "monitor";
     //WatchHistory
     private static final String TABLE_WATCHS = "Watchs";
     public static final String COLUMN_ID = "id";
     public static final String COLUMN_MOVIE_ID = "movie_id";
     public static final String COLUMN_USER_ID = "user_id";
     public static final String COLUMN_POSITION = "position";
-    public static final String COLUMN_TIMESTAMP = "timestamp";
+
     public Data(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -90,16 +96,25 @@ public class Data extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + RATINGS_USER_ID + ") REFERENCES " + TABLE_USER + "(" + USER_ID + ") ON DELETE NO ACTION)";
 
         db.execSQL(create_table_rating);
+        String create_table_monitor = "CREATE TABLE " + TABLE_MONITORS + "(" +
+                MONITORS_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                MONITORS_MOVIE_ID + " INTEGER NOT NULL, " +
+                MONITORS_USER_ID + " INTEGER NOT NULL, " +
+                MONITORS_MONITOR + " TEXT, " +
+                "FOREIGN KEY (" +   MONITORS_MOVIE_ID + ") REFERENCES " + TABLE_MOVIES + "(" + MOVIE_ID + ") ON DELETE NO ACTION, " +
+                "FOREIGN KEY (" +  MONITORS_USER_ID + ") REFERENCES " + TABLE_USER + "(" + USER_ID + ") ON DELETE NO ACTION)";
+
+        db.execSQL(create_table_monitor);
         String create_table_watchs = "CREATE TABLE " + TABLE_WATCHS + " (" +
                 COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT," +
                 COLUMN_MOVIE_ID + " INTEGER NOT NULL," +
                 COLUMN_USER_ID + " INTEGER NOT NULL," +
-                COLUMN_POSITION + " INTEGER," +
-                COLUMN_TIMESTAMP + " DATETIME DEFAULT CURRENT_TIMESTAMP," +
-                "FOREIGN KEY (" + COLUMN_MOVIE_ID + ") REFERENCES Movies(id)," +
-                "FOREIGN KEY (" + COLUMN_USER_ID + ") REFERENCES Users(id)" +
+                COLUMN_POSITION  + " REAL DEFAULT 0," +
+                "FOREIGN KEY (" +   COLUMN_MOVIE_ID + ") REFERENCES " + TABLE_MOVIES + "(" + MOVIE_ID + ") ON DELETE NO ACTION, " +
+                "FOREIGN KEY (" +  COLUMN_USER_ID + ") REFERENCES " + TABLE_USER + "(" + USER_ID + ") ON DELETE NO ACTION" +
                 ");";
         db.execSQL(create_table_watchs);
+
     }
 
     @Override
@@ -108,6 +123,7 @@ public class Data extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_MOVIES);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_COMMENTS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_RATINGS);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_MONITORS);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_WATCHS);
         onCreate(db);
     }
@@ -217,8 +233,6 @@ public class Data extends SQLiteOpenHelper {
         db.close();
         return avatar;
     }
-
-
 
     @SuppressLint("Range")
     public String getPasswordByUsername(String username) {
@@ -646,6 +660,219 @@ public class Data extends SQLiteOpenHelper {
         }
         db.close();
         return topRatings;
+    }
+    //Monitor
+    public void addMonitor(Monitor monitor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MONITORS_MOVIE_ID, monitor.getMovie_id());
+        values.put(MONITORS_USER_ID, monitor.getUser_id());
+        values.put(MONITORS_MONITOR, monitor.getMonitor());
+        db.insert(TABLE_MONITORS, null, values);
+        db.close();
+    }
+    public void deleteMonitor(int monitorId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_MONITORS, MONITORS_ID + "=?", new String[]{String.valueOf(monitorId)});
+        db.close();
+    }
+    public void updateMonitor(Monitor monitor) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(MONITORS_MOVIE_ID, monitor.getMovie_id());
+        values.put(MONITORS_USER_ID, monitor.getUser_id());
+        values.put(MONITORS_MONITOR, monitor.getMonitor());
+        db.update(TABLE_MONITORS, values, MONITORS_ID + "=?", new String[]{String.valueOf(monitor.getId())});
+        db.close();
+    }
+    @SuppressLint("Range")
+    public List<Monitor> getAllMonitors() {
+        List<Monitor> monitorsList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MONITORS, null);
+        while (cursor.moveToNext()) {
+           Monitor monitor = new Monitor();
+            monitor.setId(cursor.getInt(cursor.getColumnIndex(MONITORS_ID)));
+            monitor.setMovie_id(cursor.getInt(cursor.getColumnIndex(MONITORS_MOVIE_ID)));
+            monitor.setUser_id(cursor.getInt(cursor.getColumnIndex(MONITORS_USER_ID)));
+            monitor.setMonitor(cursor.getString(cursor.getColumnIndex(MONITORS_MONITOR)));
+            monitorsList.add(monitor);
+        }
+        cursor.close();
+        db.close();
+        return monitorsList;
+    }
+    @SuppressLint("Range")
+    public Monitor getMonitorByUserAndMovie(int userId, int movieId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Monitor monitor = null;
+        Cursor cursor = db.query(TABLE_MONITORS, null,
+                MONITORS_USER_ID + " = ? AND " + MONITORS_MOVIE_ID + " = ?",
+                new String[]{String.valueOf(userId), String.valueOf(movieId)},
+                null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            monitor = new Monitor();
+            monitor.setId(cursor.getInt(cursor.getColumnIndex(MONITORS_ID)));
+            monitor.setMovie_id(cursor.getInt(cursor.getColumnIndex(MONITORS_MOVIE_ID)));
+            monitor.setUser_id(cursor.getInt(cursor.getColumnIndex(MONITORS_USER_ID)));
+            monitor.setMonitor(cursor.getString(cursor.getColumnIndex(MONITORS_MONITOR)));
+            cursor.close();
+        }
+        db.close();
+        return monitor;
+    }
+    public boolean isMonitorExists(int monitorId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_MONITORS + " WHERE " + MONITORS_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(monitorId)});
+        boolean exists = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return exists;
+    }
+    @SuppressLint("Range")
+    public Monitor getAllMonitorsID(int idmonitor) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MONITORS + " WHERE " + MONITORS_ID + " =?", new String[]{String.valueOf(idmonitor)});
+        Monitor monitor = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            monitor = new Monitor();
+            monitor.setId(cursor.getInt(cursor.getColumnIndex(MONITORS_ID)));
+            monitor.setMovie_id(cursor.getInt(cursor.getColumnIndex(MONITORS_MOVIE_ID)));
+            monitor.setUser_id(cursor.getInt(cursor.getColumnIndex(MONITORS_USER_ID)));
+            monitor.setMonitor(cursor.getString(cursor.getColumnIndex(MONITORS_MONITOR)));
+            cursor.close();
+        }
+        db.close();
+        return monitor;
+    }
+    @SuppressLint("Range")
+    public List<Monitor> getAllMonitorsByUserId(int userId) {
+        List<Monitor> monitorList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_MONITORS + " WHERE " + MONITORS_USER_ID + " = ?", new String[]{String.valueOf(userId)});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                Monitor monitor = new Monitor();
+                monitor.setId(cursor.getInt(cursor.getColumnIndex(MONITORS_ID)));
+                monitor.setMovie_id(cursor.getInt(cursor.getColumnIndex(MONITORS_MOVIE_ID)));
+                monitor.setUser_id(cursor.getInt(cursor.getColumnIndex(MONITORS_USER_ID)));
+                monitor.setMonitor(cursor.getString(cursor.getColumnIndex(MONITORS_MONITOR)));
+                monitorList.add(monitor);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return monitorList;
+    }
+    public void addWatchs(WatchHistory watchHistory) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_MOVIE_ID, watchHistory.getMovieId());
+        values.put(COLUMN_USER_ID, watchHistory.getUserId());
+        values.put(COLUMN_POSITION,watchHistory.getPosition());
+        db.insert(TABLE_WATCHS, null, values);
+        db.close();
+    }
+    public void deleteWatchs(int watchsId) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.delete(TABLE_WATCHS, COMMENTS_ID + "=?", new String[]{String.valueOf(watchsId)});
+        db.close();
+    }
+    public void updateWathcs(WatchHistory watchHistory) {
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COLUMN_MOVIE_ID, watchHistory.getMovieId());
+        values.put(COLUMN_USER_ID, watchHistory.getUserId());
+        values.put(COLUMN_POSITION,watchHistory.getPosition());
+        db.update(TABLE_WATCHS, values, COMMENTS_ID + "=?", new String[]{String.valueOf(watchHistory.getId())});
+        db.close();
+    }
+    @SuppressLint("Range")
+    public List<WatchHistory> getAllWatchs() {
+        List<WatchHistory> watchHistoriesList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_WATCHS, null);
+        while (cursor.moveToNext()) {
+            WatchHistory watchHistory = new WatchHistory();
+            watchHistory.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+            watchHistory.setMovieId(cursor.getInt(cursor.getColumnIndex(COLUMN_MOVIE_ID)));
+            watchHistory.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
+            watchHistory.setPosition(cursor.getFloat(cursor.getColumnIndex(COLUMN_POSITION)));
+            watchHistoriesList.add(watchHistory);
+        }
+        cursor.close();
+        db.close();
+        return watchHistoriesList;
+    }
+    @SuppressLint("Range")
+    public WatchHistory getWatchHistoryByUserAndMovie(int userId, int movieId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        WatchHistory watchHistory = null;
+        Cursor cursor = db.query(TABLE_WATCHS, null,
+                COLUMN_USER_ID + " = ? AND " + COLUMN_MOVIE_ID + " = ?",
+                new String[]{String.valueOf(userId), String.valueOf(movieId)},
+                null, null, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            watchHistory = new WatchHistory();
+            watchHistory.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+            watchHistory.setMovieId(cursor.getInt(cursor.getColumnIndex(COLUMN_MOVIE_ID)));
+            watchHistory.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
+            watchHistory.setPosition(cursor.getFloat(cursor.getColumnIndex(COLUMN_POSITION)));
+            cursor.close();
+        }
+        db.close();
+        return watchHistory;
+    }
+
+    public boolean isWatchHistoryExists(int watchHistoryId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        String query = "SELECT * FROM " + TABLE_WATCHS + " WHERE " + COLUMN_ID + " = ?";
+        Cursor cursor = db.rawQuery(query, new String[]{String.valueOf(watchHistoryId)});
+        boolean exists = (cursor != null && cursor.getCount() > 0);
+        if (cursor != null) {
+            cursor.close();
+        }
+        db.close();
+        return exists;
+    }
+    @SuppressLint("Range")
+    public WatchHistory getAllWatchsID(int idwatch) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_WATCHS + " WHERE " + COLUMN_ID + " =?", new String[]{String.valueOf(idwatch)});
+        WatchHistory watchHistory = null;
+        if (cursor != null && cursor.moveToFirst()) {
+            watchHistory = new WatchHistory();
+            watchHistory.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+            watchHistory.setMovieId(cursor.getInt(cursor.getColumnIndex(COLUMN_MOVIE_ID)));
+            watchHistory.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
+            watchHistory.setPosition(cursor.getFloat(cursor.getColumnIndex(COLUMN_POSITION)));
+            cursor.close();
+        }
+        db.close();
+        return watchHistory;
+    }
+    @SuppressLint("Range")
+
+    public List<WatchHistory> getAllWatchsByUserId(int userId) {
+        List<WatchHistory> watchHistoriesList = new ArrayList<>();
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT * FROM " + TABLE_WATCHS + " WHERE " + COLUMN_USER_ID + " = ?", new String[]{String.valueOf(userId)});
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                WatchHistory watchHistory = new WatchHistory();
+                watchHistory.setId(cursor.getInt(cursor.getColumnIndex(COLUMN_ID)));
+                watchHistory.setMovieId(cursor.getInt(cursor.getColumnIndex(COLUMN_MOVIE_ID)));
+                watchHistory.setUserId(cursor.getInt(cursor.getColumnIndex(COLUMN_USER_ID)));
+                watchHistory.setPosition(cursor.getFloat(cursor.getColumnIndex(COLUMN_POSITION)));
+                watchHistoriesList.add(watchHistory);
+            } while (cursor.moveToNext());
+            cursor.close();
+        }
+        db.close();
+        return watchHistoriesList;
     }
 
 }

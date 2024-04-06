@@ -20,8 +20,8 @@ import com.example.myapplication.login_signup.Signup_activity;
 
 public class UserActivity extends AppCompatActivity {
     TableRow tableuser;
-    TextView tvuser,tvdx;
-    ImageView imageuser,imagehome,imagefilm,imagetk;
+    TextView tvuser,tvdx,tvfilmlove,tvlsfilm;
+    ImageView imageuser,imagehome,imagefilm,imagetk,imagetb;
     Data data;
 
     @Override
@@ -36,6 +36,9 @@ public class UserActivity extends AppCompatActivity {
         imagefilm = findViewById(R.id.imagefilm);
         imagetk = findViewById(R.id.imagekh);
         imageuser = findViewById(R.id.imageuser);
+        tvfilmlove = findViewById(R.id.tvfilmlove);
+        imagetb = findViewById(R.id.imagetb);
+        tvlsfilm = findViewById(R.id.tvlsfilm);
         SharedPreferences sharedPreferences = getSharedPreferences("MyPrefs", Context.MODE_PRIVATE);
         String username = sharedPreferences.getString("USERNAME", "");
         Taikhoan tk = data.getTKByUser(username);
@@ -45,6 +48,20 @@ public class UserActivity extends AppCompatActivity {
                 .placeholder(R.drawable.logo)
                 .error(R.drawable.logo)
                 .into(imageuser);
+        tvlsfilm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, lsfilm_activity.class);
+                startActivity(intent);
+            }
+        });
+        imagetb.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, tb_activity.class);
+                startActivity(intent);
+            }
+        });
         imagehome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,6 +88,13 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(UserActivity.this, Login_activity.class);
+                startActivity(intent);
+            }
+        });
+        tvfilmlove.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserActivity.this, filmlove_activity.class);
                 startActivity(intent);
             }
         });

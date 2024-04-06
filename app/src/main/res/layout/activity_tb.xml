@@ -5,7 +5,6 @@
     android:orientation="vertical">
     <!-- Header Layout -->
     <LinearLayout
-        android:id="@+id/layoutfilm"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#fff"
@@ -25,27 +24,23 @@
             android:layout_width="350dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:text="Trung tâm tin nhắn"
             android:paddingLeft="10dp"
-            android:text="TextView"
             android:textAlignment="viewStart"
             android:textSize="20sp" />
+
     </LinearLayout>
 
-    <!-- WebView -->
-    <FrameLayout
-        android:id="@+id/fullscreenContainer"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-    </FrameLayout>
-
-    <WebView
-        android:id="@+id/webview"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
-
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </LinearLayout>
 
 </LinearLayout>

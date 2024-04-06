@@ -30,9 +30,17 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="30dp"
             android:fontFamily="@font/poppins_medium"
-            android:text="tvtennguoidung"
+            android:text="tvten"
             android:textColor="#FFFFFF"
             android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/imagetb"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="120dp"
+            android:src="@drawable/thongbao" />
     </TableRow>
 
     <LinearLayout
@@ -41,7 +49,7 @@
         android:orientation="vertical">
 
         <TextView
-            android:id="@+id/textView16"
+          android:id="@+id/tvfilmlove"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
@@ -53,7 +61,7 @@
             android:textSize="20sp" />
 
         <TextView
-            android:id="@+id/textView17"
+            android:id="@+id/tvlsfilm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"

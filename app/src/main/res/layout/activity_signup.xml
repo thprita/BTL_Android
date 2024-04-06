@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#0E131F"
-    tools:context=".MainActivity"
     tools:layout_editor_absoluteX="0dp"
     tools:layout_editor_absoluteY="0dp">
 
@@ -42,6 +41,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:foregroundTint="#FFFFFF"
+        android:textColor="#FFFFFF"
         android:ems="10"
         android:inputType="textPassword"
         app:layout_constraintEnd_toEndOf="parent"

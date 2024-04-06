@@ -5,7 +5,6 @@
     android:orientation="vertical">
     <!-- Header Layout -->
     <LinearLayout
-        android:id="@+id/layoutfilm"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#fff"
@@ -26,26 +25,24 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:paddingLeft="10dp"
-            android:text="TextView"
+            android:text="Danh sách phim đã xem"
             android:textAlignment="viewStart"
             android:textSize="20sp" />
+
     </LinearLayout>
 
-    <!-- WebView -->
-    <FrameLayout
-        android:id="@+id/fullscreenContainer"
+    <TextView
+        android:id="@+id/tvtext"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="20sp" />
 
-    </FrameLayout>
-
-    <WebView
-        android:id="@+id/webview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerlsfilm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-    </WebView>
+        android:layout_height="577dp"
+        android:layout_weight="1" />
 
 
 </LinearLayout>

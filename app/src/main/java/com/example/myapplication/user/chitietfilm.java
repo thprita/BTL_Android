@@ -21,19 +21,23 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.CommentAdapter;
+import com.example.myapplication.admin.Editfilmlove;
+import com.example.myapplication.admin.Editwatchs;
 import com.example.myapplication.data.Data;
+import com.example.myapplication.data.Monitor;
 import com.example.myapplication.data.Movie;
 import com.example.myapplication.data.Rating;
 import com.example.myapplication.data.Review;
 import com.example.myapplication.data.Taikhoan;
+import com.example.myapplication.data.WatchHistory;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class chitietfilm extends AppCompatActivity {
-    private ImageView imageView, imagetl2;
-    private TextView titleTextView, tvtitle,descriptionTextView, tvposition, tvtheloai,tvdanhgia;
-    private Button xemButton, btnbinhluan, btndanhgia,btnsua,btnupdate;
+    ImageView imageView, imagetl2;
+    TextView titleTextView, tvtitle,descriptionTextView, tvposition, tvtheloai,tvdanhgia;
+    Button xemButton, btnbinhluan, btndanhgia,btnsua,btnupdate,btnhuytd,btntd;
     EditText edtbinhluan, edtdanhgia,edtsuadg;
     private String videoUrl, username;
     Data data;
@@ -70,10 +74,18 @@ public class chitietfilm extends AppCompatActivity {
             btnupdate.setVisibility(GONE);
             String ra = "Đánh giá TB: " + rating;
             titleTextView.setText(ra);
+            btntd.setVisibility(GONE);
+            btnhuytd.setVisibility(GONE);
             Taikhoan user = data.getTKById(id_user);
             Movie movie = data.getMovieById(idmovie);
+            Monitor monitor = data.getMonitorByUserAndMovie(user.getIdtk(), movie.getIdmovie());
+            if (monitor != null) {
+                btnhuytd.setVisibility(View.VISIBLE);
+            }
+            else{
+                btntd.setVisibility(View.VISIBLE);
+            }
             Rating rating1 = data.getRatingByUserAndMovie(user.getIdtk(), movie.getIdmovie());
-
             if (rating1 != null) {
                 layoutDanhGia.setVisibility(View.GONE);
                 int ratingValue = rating1.getRating();
@@ -95,17 +107,69 @@ public class chitietfilm extends AppCompatActivity {
             tvtheloai.setText(theloai);
             String position = "Thời lượng phim: " + duration;
             tvposition.setText(position);
-
             Glide.with(this)
                     .load(img)
                     .error(R.drawable.logo)
                     .into(imageView);
 
-
+            btntd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    int id_movie = idmovie;
+                    int iduser = id_user;
+                    String love = "true";
+                    Monitor monitors = new Monitor();
+                    monitors.setMovie_id(id_movie);
+                    monitors.setUser_id(id_user);
+                    monitors.setMonitor(love);
+                    data.addMonitor(monitors);
+                    Toast.makeText(chitietfilm.this, "Đã theo dõi thành công!", Toast.LENGTH_SHORT).show();
+                    btntd.setVisibility(GONE);
+                    btnhuytd.setVisibility(View.VISIBLE);
+                }
+            });
+            btnhuytd.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Monitor monitor = data.getMonitorByUserAndMovie(user.getIdtk(), movie.getIdmovie());
+                    int monitorid = monitor.getId();
+                    data.deleteMonitor(monitorid);
+                    Toast.makeText(chitietfilm.this, "Đã hủy theo dõi!", Toast.LENGTH_SHORT).show();
+                    btnhuytd.setVisibility(GONE);
+                    btntd.setVisibility(View.VISIBLE);
+                }
+            });
             xemButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    int id_movie = idmovie;
+                    int iduser = id_user;
+                    float position = 0;
+                    Taikhoan user = data.getTKById(iduser);
+                    Movie movie = data.getMovieById(id_movie);
+                    if (user != null && movie != null) {
+                        WatchHistory existingWatchs = data.getWatchHistoryByUserAndMovie(iduser,id_movie);
+                        if (existingWatchs != null) {
+                           // Toast.makeText(chitietfilm.this, "Đã được xem", Toast.LENGTH_SHORT).show();
+                        } else {
+                            WatchHistory watchHistory = new WatchHistory();
+                            watchHistory.setMovieId(id_movie);
+                            watchHistory.setUserId(iduser);
+                            watchHistory.setPosition(position);
+                            data.addWatchs(watchHistory);
+                            //Toast.makeText(chitietfilm.this, "Thêm ls xem thành công!", Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        if (user == null) {
+                            Toast.makeText(chitietfilm.this, "User không tồn tại!", Toast.LENGTH_SHORT).show();
+                        }
+                        if (movie == null) {
+                            Toast.makeText(chitietfilm.this, "Movie không tồn tại!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                     Intent intent = new Intent(chitietfilm.this, filmActivity.class);
+                    intent.putExtra("MOVIEID",id_movie);
+                    intent.putExtra("USERUD",iduser);
                     intent.putExtra("MOVIE_TITLE", title);
                     intent.putExtra("VIDEO_URL", videoUrl);
                     startActivity(intent);
@@ -159,7 +223,7 @@ public class chitietfilm extends AppCompatActivity {
                     titleTextView.setText("");
                     String averageRating = String.valueOf(data.getAverageRating(idmovie));
                     String rating1 = String.valueOf(averageRating);
-                    String ra = "Đánh giá: " + rating1;
+                    String ra = "Đánh giá TB: " + rating1;
                     titleTextView.setText(ra);
                     edtbinhluan.setText("");
                     edtdanhgia.setText("");
@@ -184,7 +248,6 @@ public class chitietfilm extends AppCompatActivity {
                     edtsuadg.setVisibility(View.VISIBLE);
                     btnupdate.setVisibility(View.VISIBLE);
                     btnsua.setVisibility(GONE);
-
                 }
             });
             btnupdate.setOnClickListener(new View.OnClickListener() {
@@ -255,10 +318,8 @@ public class chitietfilm extends AppCompatActivity {
         edtsuadg = findViewById(R.id.edtsuadg);
         tvdanhgia = findViewById(R.id.tvdanhgia);
         btnupdate = findViewById(R.id.btnupdate);
-
-
-
-
+        btnhuytd = findViewById(R.id.btnhuy);
+        btntd = findViewById(R.id.btntheodoi);
     }
     public void trolai(){
         imagetl2.setOnClickListener(new View.OnClickListener() {

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.MovieAdapter;
+import com.example.myapplication.admin.NotificationHelper;
 import com.example.myapplication.data.Data;
 import com.example.myapplication.data.Movie;
 import com.example.myapplication.data.Rating;
@@ -43,7 +44,7 @@ public class Home_activity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
-
+       // NotificationHelper.showNotification(this, "Thông báo", "Chào mừng bạn đến với app của mình");
         Anhxa();
         ActionViewFlipper();
         Recyclerview();

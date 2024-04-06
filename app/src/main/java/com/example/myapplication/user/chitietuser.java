@@ -102,7 +102,7 @@ public class chitietuser extends AppCompatActivity {
                         Glide.with(chitietuser.this)
                                 .load(avatar)
                                 .placeholder(R.drawable.logo)
-                                .error(R.drawable.logo)
+                                .error(R.drawable.background)
                                 .into(imageuser);
                         textviewuser.setText(user);
 
