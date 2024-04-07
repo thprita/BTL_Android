@@ -45,6 +45,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#5992d2"
             android:orientation="vertical">
 
             <!-- Phim hot 1 -->
@@ -59,7 +60,7 @@
                     android:layout_height="wrap_content"
                     android:background="#79BF27"
                     android:paddingLeft="10dp"
-                    android:text="a1"
+                    android:text="Hành động"
                     android:textColor="#BF1111"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -81,9 +82,9 @@
                     android:id="@+id/tva2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
                     android:background="#79BF27"
-                    android:text="a2"
+                    android:paddingLeft="10dp"
+                    android:text="Hoạt hình"
                     android:textColor="#BF1111"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -105,9 +106,9 @@
                     android:id="@+id/tva3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
-                    android:text="a3"
                     android:background="#79BF27"
+                    android:paddingLeft="10dp"
+                    android:text="Âm nhạc"
                     android:textColor="#BF1111"
                     android:textSize="18sp"
                     android:textStyle="bold" />
@@ -129,9 +130,9 @@
                     android:id="@+id/tva4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingLeft="10dp"
                     android:background="#79BF27"
-                    android:text="a4"
+                    android:paddingLeft="10dp"
+                    android:text="Thanh xuân"
                     android:textColor="#BF1111"
                     android:textSize="18sp"
                     android:textStyle="bold" />

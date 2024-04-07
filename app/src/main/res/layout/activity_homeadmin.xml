@@ -121,7 +121,7 @@
                         android:layout_width="180dp"
                         android:layout_height="102dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/comment" />
 
                     <TextView
                         android:id="@+id/item_text3"
@@ -154,7 +154,7 @@
                         android:layout_width="180dp"
                         android:layout_height="102dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/rating" />
 
                     <TextView
                         android:id="@+id/item_text"
@@ -193,7 +193,7 @@
                         android:layout_width="180dp"
                         android:layout_height="102dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/love" />
 
                     <TextView
                         android:id="@+id/item_text5"
@@ -226,7 +226,7 @@
                         android:layout_width="180dp"
                         android:layout_height="102dp"
                         android:layout_gravity="center_horizontal"
-                        android:src="@drawable/logo" />
+                        android:src="@drawable/history" />
 
                     <TextView
                         android:id="@+id/item_text4"

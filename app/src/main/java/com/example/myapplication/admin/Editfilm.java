@@ -20,7 +20,7 @@ import com.example.myapplication.data.Movie;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Editfilm extends AppCompatActivity {
+public class        Editfilm extends AppCompatActivity {
     EditText edttitle,edtnd,edtimg,edtvideo,edtduration,edtcategory,edtid;
     ImageView imagetl;
     Button btnthem,btnsua,btnxoa,btnds;
